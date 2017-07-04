@@ -3,10 +3,10 @@ from mysql.connector import errorcode
 import time
 
 query_dict = {
-    "insert" : "INSERT INTO `database`.`table1`(`id`,`name`) VALUES ({0},'{1}');",
+    "delete_id" : "DELETE FROM `database`.`table1` WHERE id = ({0});",
 }
 
-def commonInsert(query):
+def commonDelete(query):
     try:
         cnx = mysql.connector.connect(user='root', password='ma',
                                       host='127.0.0.1',
@@ -29,8 +29,8 @@ def commonInsert(query):
     else:
         cnx.close()
 
-def insert(id, name):
-    return commonInsert(query_dict["insert"].format(id,name))
+def deleteID(id):
+    return commonDelete(query_dict["delete_id"].format(id))
 
-print insert(3, 'Vazgen')
+print deleteID(3)
 

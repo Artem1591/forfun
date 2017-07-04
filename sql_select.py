@@ -3,10 +3,13 @@ from mysql.connector import errorcode
 import time
 
 query_dict = {
-    "insert" : "INSERT INTO `database`.`table1`(`id`,`name`) VALUES ({0},'{1}');",
+    "select_all" : "SELECT * FROM table1",
+    "select_by_id" : "SELECT id FROM table1 WHERE id = {0}",
+    "select_by_name" : "SELECT name FROM table1 WHERE name LIKE '{0}'"
 }
 
-def commonInsert(query):
+def commonSelect (query):
+    returnvalue = None
     try:
         cnx = mysql.connector.connect(user='root', password='ma',
                                       host='127.0.0.1',
@@ -15,7 +18,9 @@ def commonInsert(query):
 
         cursor.execute(query)
 
-        cnx.commit()
+        returnvalue = list()
+        for line in cursor:
+            returnvalue.append(line)
 
         cursor.close()
 
@@ -26,11 +31,16 @@ def commonInsert(query):
             print("Database does not exist")
         else:
             print(err)
-    else:
-        cnx.close()
+    return returnvalue
 
-def insert(id, name):
-    return commonInsert(query_dict["insert"].format(id,name))
+def selectAll():
+    return commonSelect(query_dict["select_all"])
 
-print insert(3, 'Vazgen')
+def selectByID(id):
+    return commonSelect(query_dict["select_by_id"].format(id))
+
+def selectByNAME(name):
+    return commonSelect(query_dict["select_by_name"].format(name))
+
+print selectAll()
 
