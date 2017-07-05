@@ -1,8 +1,8 @@
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler
-from sql_insert import *
-from sql_delete import *
-from sql_select import *
+from sql_insert import insert
+from sql_delete import deleteID
+from sql_select import selectAll, selectByID
 
 # Restrict to a particular path.
 class RequestHandler(SimpleXMLRPCRequestHandler):
@@ -12,6 +12,7 @@ class RequestHandler(SimpleXMLRPCRequestHandler):
 server = SimpleXMLRPCServer(("localhost", 8000),
                             requestHandler=RequestHandler, allow_none=1)
 
+server.register_function(selectByID)
 server.register_function(selectAll)
 server.register_function(insert)
 server.register_function(deleteID)

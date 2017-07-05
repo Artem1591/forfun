@@ -28,8 +28,8 @@ def commonInsert(query):
     else:
         cnx.close()
 
-def insert(id, name):
+def insert(name):
     return commonInsert(query_dict["insert"].format(name))
 
-#print insert(3, 'Vazgen')
+#print insert('Vazgen')
 

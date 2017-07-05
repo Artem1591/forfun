@@ -99,6 +99,6 @@ if __name__ == '__main__':
     # args = parser.parse_args()
 
     server = SimpleHttpServer("127.0.0.1", 8008)
-    print 'HTTP Server Running...........'
+    print 'Math Server Running...........'
     server.start()
     server.waitForThread()

@@ -6,6 +6,9 @@ import re
 import cgi
 import json
 import xmlrpclib
+import sql_select
+import sql_insert
+import sql_delete
 
 class LocalData(object):
     records = {}
@@ -38,7 +41,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
                 self.send_response(200)
                 #self.send_header('Content-Type', 'application/json')
                 self.end_headers()
-                self.wfile.write(resp.text)
+                self.wfile.write(retutn_list)
             else:
                 self.send_response(400, 'Bad Request: record does not exist')
                 self.send_header('Content-Type', 'application/json')
@@ -51,11 +54,6 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             s = xmlrpclib.ServerProxy('http://localhost:8000')
             retutn_list = s.selectAll()
             if retutn_list:
-
-                # import requests
-                # resp = requests.post("http://127.0.0.1:8000/api/run", json=req)
-                # print resp.status_code
-                # print resp.text
 
                 self.send_response(200)
                 #self.send_header('Content-Type', 'application/json')
@@ -74,20 +72,14 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             self.end_headers()
         return
 
-        if None != re.search('/api/v1/getrecord/insname/*', self.path):  #insert
+        # noinspection PyUnreachableCode
+        if None != re.search('/api/v1/getrecord/delid/*', self.path):
             name = self.path.split('/')[-1]
             s = xmlrpclib.ServerProxy('http://localhost:8000')
             s.insert(name)
             retutn_list = s.selectAll()
             if retutn_list:
-
-                # import requests
-                # resp = requests.post("http://127.0.0.1:8000/api/run", json=req)
-                # print resp.status_code
-                # print resp.text
-
                 self.send_response(200)
-                # self.send_header('Content-Type', 'application/json')
                 self.end_headers()
                 self.wfile.write(retutn_list)
             else:
@@ -96,26 +88,20 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(
                     '{ "errors": [{"status": "400","detail": "record does not exist" }]}')
-
         else:
             self.send_response(403)
             self.send_header('Content-Type', 'application/json')
             self.end_headers()
         return
 
-        if None != re.search('/api/v1/getrecord/delid/*', self.path):  # delete
+        # noinspection PyUnreachableCode
+        if None != re.search('/api/v1/getrecord/delid/*', self.path):
             recordID = self.path.split('/')[-1]
             s = xmlrpclib.ServerProxy('http://localhost:8000')
             s.deleteID(recordID)
+            retutn_list = s.selectAll()
             if retutn_list:
-
-                # import requests
-                # resp = requests.post("http://127.0.0.1:8000/api/run", json=req)
-                # print resp.status_code
-                # print resp.text
-
                 self.send_response(200)
-                # self.send_header('Content-Type', 'application/json')
                 self.end_headers()
                 self.wfile.write(retutn_list)
             else:

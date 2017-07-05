@@ -31,5 +31,5 @@ def commonDelete(query):
 def deleteID(id):
     return commonDelete(query_dict["delete_id"].format(id))
 
-#print deleteID(3)
+#print deleteID(5)
 

@@ -3,7 +3,7 @@ from mysql.connector import errorcode
 
 query_dict = {
     "select_all" : "SELECT * FROM table1",
-    "select_by_id" : "SELECT id FROM table1 WHERE id = {0}",
+    "select_by_id" : "SELECT * FROM table1 WHERE idtable1 = {0}",
     "select_by_name" : "SELECT name FROM table1 WHERE name LIKE '{0}'"
 }
 
@@ -41,5 +41,5 @@ def selectByID(id):
 def selectByNAME(name):
     return commonSelect(query_dict["select_by_name"].format(name))
 
-#print selectAll()
+#print selectByID(1)
 

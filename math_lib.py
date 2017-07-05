@@ -12,7 +12,7 @@ def test(data):
 
 math_dict = {
         "sum": summ,
-        "test" : test
+        "test": test
     }
 
 
