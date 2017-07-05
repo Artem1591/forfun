@@ -3,13 +3,10 @@ from mysql.connector import errorcode
 import time
 
 query_dict = {
-    "select_all" : "SELECT * FROM table1",
-    "select_by_id" : "SELECT id FROM table1 WHERE id = {0}",
-    "select_by_name" : "SELECT name FROM table1 WHERE name LIKE '{0}'"
+    "delete_id" : "DELETE FROM `database`.`table1` WHERE id = ({0});",
 }
 
-def commonSelect (query):
-    returnvalue = None
+def commonDelete(query):
     try:
         cnx = mysql.connector.connect(user='root', password='ma',
                                       host='127.0.0.1',
@@ -18,9 +15,7 @@ def commonSelect (query):
 
         cursor.execute(query)
 
-        returnvalue = list()
-        for line in cursor:
-            returnvalue.append(line)
+        cnx.commit()
 
         cursor.close()
 
@@ -31,16 +26,11 @@ def commonSelect (query):
             print("Database does not exist")
         else:
             print(err)
-    return returnvalue
+    else:
+        cnx.close()
 
-def selectAll():
-    return commonSelect(query_dict["select_all"])
+def deleteID(id):
+    return commonDelete(query_dict["delete_id"].format(id))
 
-def selectByID(id):
-    return commonSelect(query_dict["select_by_id"].format(id))
-
-def selectByNAME(name):
-    return commonSelect(query_dict["select_by_name"].format(name))
-
-print selectAll()
+print deleteID(3)
 
