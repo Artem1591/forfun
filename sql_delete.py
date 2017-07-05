@@ -1,9 +1,8 @@
 import mysql.connector
 from mysql.connector import errorcode
-import time
 
 query_dict = {
-    "delete_id" : "DELETE FROM `database`.`table1` WHERE id = ({0});",
+    "delete_id" : "DELETE FROM `database`.`table1` WHERE idtable1 = ({0});",
 }
 
 def commonDelete(query):
@@ -32,5 +31,5 @@ def commonDelete(query):
 def deleteID(id):
     return commonDelete(query_dict["delete_id"].format(id))
 
-print deleteID(3)
+#print deleteID(3)
 

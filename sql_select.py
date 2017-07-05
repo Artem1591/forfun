@@ -1,6 +1,5 @@
 import mysql.connector
 from mysql.connector import errorcode
-import time
 
 query_dict = {
     "select_all" : "SELECT * FROM table1",
@@ -42,5 +41,5 @@ def selectByID(id):
 def selectByNAME(name):
     return commonSelect(query_dict["select_by_name"].format(name))
 
-print selectAll()
+#print selectAll()
 

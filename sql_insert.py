@@ -1,9 +1,8 @@
 import mysql.connector
 from mysql.connector import errorcode
-import time
 
 query_dict = {
-    "insert" : "INSERT INTO `database`.`table1`(`id`,`name`) VALUES ({0},'{1}');",
+    "insert" : "INSERT INTO `database`.`table1`(`name`) VALUES ('{0}');",
 }
 
 def commonInsert(query):
@@ -30,7 +29,7 @@ def commonInsert(query):
         cnx.close()
 
 def insert(id, name):
-    return commonInsert(query_dict["insert"].format(id,name))
+    return commonInsert(query_dict["insert"].format(name))
 
-print insert(3, 'Vazgen')
+#print insert(3, 'Vazgen')
 
