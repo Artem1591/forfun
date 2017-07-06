@@ -33,10 +33,10 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
                     'data': retutn_list
                 }
 
-                import requests
-                resp = requests.post("http://127.0.0.1:8008/api/run", json=req)
-                print resp.status_code
-                print resp.text
+                #import requests
+                #resp = requests.post("http://127.0.0.1:8008/api/run", json=req)
+                #print resp.status_code
+                #print resp.text
 
                 self.send_response(200)
                 #self.send_header('Content-Type', 'application/json')
@@ -66,14 +66,8 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
                 self.wfile.write(
                     '{ "errors": [{"status": "400","detail": "record does not exist" }]}')
 
-        else:
-            self.send_response(403)
-            self.send_header('Content-Type', 'application/json')
-            self.end_headers()
-        return
-
         # noinspection PyUnreachableCode
-        if None != re.search('/api/v1/getrecord/delid/*', self.path):
+        if None != re.search('/api/v1/getrecord/insname/*', self.path):
             name = self.path.split('/')[-1]
             s = xmlrpclib.ServerProxy('http://localhost:8000')
             s.insert(name)
@@ -88,11 +82,6 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(
                     '{ "errors": [{"status": "400","detail": "record does not exist" }]}')
-        else:
-            self.send_response(403)
-            self.send_header('Content-Type', 'application/json')
-            self.end_headers()
-        return
 
         # noinspection PyUnreachableCode
         if None != re.search('/api/v1/getrecord/delid/*', self.path):
@@ -110,12 +99,6 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(
                     '{ "errors": [{"status": "400","detail": "record does not exist" }]}')
-
-        else:
-            self.send_response(403)
-            self.send_header('Content-Type', 'application/json')
-            self.end_headers()
-        return
 
 class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
     allow_reuse_address = True
